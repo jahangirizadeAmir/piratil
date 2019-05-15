@@ -8,7 +8,7 @@
 
     class  dataBase
     {
-        public static $dbName = 'vakil';
+        public static $dbName = 'piratil';
         public static $dbUserName = 'root';
         public static $dbPassword = '';
         public static $dbAddress = 'localHost';
@@ -115,6 +115,7 @@
             $hashedPassword = strtolower($password);
             $hashedPassword = hash("SHA512",$hashedPassword);
             $hashedPassword = hash("SHA512",$hashedPassword);
+            $hashedPassword = hash("SHA256",$hashedPassword);
             $hashedPassword = hash("SHA512",$hashedPassword);
             return $hashedPassword;
         }
@@ -149,8 +150,9 @@
                 return $va_id;
             }
             catch (Exception $e) {
-            }
+                return null;
 
+            }
         }
         public static function convertNumber($var){
             $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -161,5 +163,40 @@
             $englishNumbersOnly = str_replace($arabic, $num, $convertedPersianNums);
 
             return $englishNumbersOnly;
+        }
+        public static function sendSms($code,$number){
+
+            $client = new
+            SoapClient("http://37.130.202.188/class/sms/wsdlservice/server.php?wsdl");
+            $user = "amlak300";
+            $pass = "amir5621";
+            $fromNum = "+985000958";
+            $toNum = array($number);
+            $pattern_code = "128";
+            $input_data = array(
+                "name" => " پیراتیل ",
+                "verification-code" => $code,
+            );
+            $client->sendPatternSms($fromNum,$toNum,$user,$pass,$pattern_code,$input_data);
+        }
+
+        public Static function randomString($length=20){
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+            return $randomString;
+        }
+
+        public Static function checkVersion($type,$version){
+            if(dataBase::Query("SELECT * FROM appVersion where appVersionDevice='$type' AND appVersionNumber='$version'",dataBase::$NUM_ROW)==0){
+                return false;
+            }else{
+                return true;
+            }
+
+
         }
 }

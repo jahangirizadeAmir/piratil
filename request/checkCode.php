@@ -19,26 +19,19 @@ if (
    $_POST['type']!='' &&
    $_POST['appVersion']!='' &&
    $_POST['device']!=''
-
 ) {
-
     $result = $db::RealString($_POST);
     $mobile = $result['mobile'];
     $code = $result['code'];
     $type = $result['type'];
-
-
     $appVersion = $result['appVersion'];
     $device = $result['device'];
-
     if(!$db::checkVersion($device,$appVersion)){
         $version=false;
         $call=array("error"=>true,"version"=>false);
         echo json_encode($call);
         return;
     }
-
-
     if($type=='user') {
         $selectNum = $db::Query("
                         SELECT userId FROM user where 
@@ -81,19 +74,16 @@ if (
             $va_password = $db::HashPassword($encode2);
             //Encode MD5 For security
             $update = $db::Query(
-
                 "UPDATE location set 
                         locationPassword='$va_password',locationCode=''
                         where locationCode='$code'
                           AND locationPhoneNumber='$mobile'"
-
             );
             $call = array("error" => false, "token" => $encode, "version" => true);
             echo json_encode($call);
         } else {
             $call = array("error" => true, "MSG" => "کد وارد شده اشتباه است");
             echo json_encode($call);
-
         }
     }
 }

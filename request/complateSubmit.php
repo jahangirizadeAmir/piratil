@@ -10,18 +10,19 @@ $db = new dataBase();
 //$CheckedArray = array("mobile","token","gender","name","invitedMobile","appVersion","device");
 //$CheckedArrayEmpty = array("mobile","token","gender","name","appVersion","device");
 if(
-isset($_POST['mobile']) &&
-isset($_POST['token']) &&
-isset($_POST['gender']) &&
-isset($_POST['name']) &&
-isset($_POST['invitedMobile']) &&
-isset($_POST['appVersion']) &&
-isset($_POST['device']) &&
+//isset($_POST['mobile']) &&
+//isset($_POST['token']) &&
+//isset($_POST['gender']) &&
+//isset($_POST['name']) &&
+//isset($_POST['invitedMobile']) &&
+//isset($_POST['appVersion']) &&
+//isset($_POST['device']) &&
 $_POST['device']!='' &&
 $_POST['appVersion']!='' &&
 $_POST['name']!='' &&
 $_POST['gender']!='' &&
 $_POST['token']!='' &&
+//$_POST['invitedMobile']!='' &&
 $_POST['mobile']!=''
 
 ) {

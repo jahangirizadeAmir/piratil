@@ -7,7 +7,6 @@
  */
 include "../class/dataBase.php";
 $db = new dataBase();
-$CheckedArray = array("mobile","code","appVersion","device","type");
 
 if (
    isset($_POST['mobile']) &&
